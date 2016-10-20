@@ -40,6 +40,8 @@
     </div>
     <div id="form-demo" class="row-field">
         {% if form %}
+        {% if success %}<span>Validation successful!</span>{% endif %}
+        {% if form.errors %}{{form.errors}}{% endif %}
         <form id="dateTimeExample" action="" method="POST" class="form-group">
         {% csrf_token %}
         {{ form.as_table }}

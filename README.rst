@@ -1,6 +1,8 @@
 django-datetime-widget
 ======================
 
+[<img src="https://secure.travis-ci.org/chrisspen/django-datetime-widget.png?branch=master" alt="Build Status">](https://travis-ci.org/chrisspen/django-datetime-widget)
+
 .. image:: https://pypip.in/v/django-datetime-widget/badge.png
     :target: https://crate.io/packages/django-datetime-widget
 .. image:: https://pypip.in/d/django-datetime-widget/badge.png
@@ -139,6 +141,21 @@ Basic Configuration
 
 !!! If you add 'format' into options and in the same time set usel10n as True the first one is ignored. !!!
 
+Development
+-----------
+
+To run all [tests](http://tox.readthedocs.org/en/latest/):
+
+    export TESTNAME=; tox
+    
+To run tests for a specific environment (e.g. Python 2.7 with Django 1.9):
+    
+    export TESTNAME=; tox -e py27-django19
+
+To run a specific test:
+    
+    export TESTNAME=.test_forms_v2; tox -e py27-django19
+    
 Options
 =======
 The options attribute can accept the following:

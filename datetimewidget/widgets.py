@@ -23,7 +23,7 @@ supported_languages = set([
     'bg',
     'ca', 'cs',
     'da', 'de',
-    'ee', 'el', 'es','eu',
+    'ee', 'el', 'es', 'eu',
     'fi', 'fr',
     'he', 'hr', 'hu',
     'id', 'is', 'it',
@@ -121,8 +121,9 @@ BOOTSTRAP_INPUT_TEMPLATE = {
        """
        }
 
-CLEAR_BTN_TEMPLATE = {2: """<span class="add-on"><i class="icon-remove"></i></span>""",
-                      3: """<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>"""}
+CLEAR_BTN_TEMPLATE = {
+    2: '<span class="add-on"><i class="icon-remove"></i></span>',
+    3: '<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>'}
 
 
 quoted_options = set([
@@ -161,7 +162,7 @@ def quote(key, value):
         return "'%s'" % value
 
     if key in quoted_bool_options and isinstance(value, bool):
-        return {True:'true',False:'false'}[value]
+        return {True:'true', False:'false'}[value]
 
     return value
 
@@ -173,7 +174,7 @@ class PickerWidgetMixin(object):
 
     def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
 
-        if bootstrap_version in [2,3]:
+        if bootstrap_version in [2, 3]:
             self.bootstrap_version = bootstrap_version
         else:
             # default 2 to mantain support to old implemetation of django-datetime-widget
@@ -211,10 +212,9 @@ class PickerWidgetMixin(object):
 
             # If we're not doing localisation, get the Javascript date format provided by the user,
             # with a default, and convert it to a Python data format for later string parsing
-            format = self.options['format']
             self.format = toPython_re.sub(
                 lambda x: dateConversiontoPython[x.group()],
-                format
+                self.options['format']
                 )
 
         super(PickerWidgetMixin, self).__init__(attrs, format=self.format)
@@ -234,19 +234,19 @@ class PickerWidgetMixin(object):
         js_options = ",\n".join(options_list)
 
         # Use provided id or generate hex to avoid collisions in document
-        id = final_attrs.get('id', uuid.uuid4().hex)
+        _id = final_attrs.get('id', uuid.uuid4().hex)
 
         clearBtn = quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true'
 
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
                 % dict(
-                    id=id,
+                    id=_id,
                     rendered_widget=rendered_widget,
                     clear_button=CLEAR_BTN_TEMPLATE[self.bootstrap_version] if clearBtn else "",
                     glyphicon=self.glyphicon,
                     options=js_options
-                    )
+                )
         )
 
     def _media(self):
@@ -330,4 +330,3 @@ class TimeWidget(PickerWidgetMixin, TimeInput):
         options['format'] = options.get('format', 'hh:ii')
 
         super(TimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
-

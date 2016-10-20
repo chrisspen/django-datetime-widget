@@ -1,10 +1,7 @@
-from django.db import models
-
-# Create your models here.
 
 from django import forms
-from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
 
+from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
 
 # Bootstrap 3
 
